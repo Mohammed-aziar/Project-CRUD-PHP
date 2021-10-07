@@ -37,16 +37,28 @@
     <p><input type="text" name="txtprice" placeholder="Entrer prix de produit"></p>
         <input type="submit" name="saveProduct" value="enregistré">
     </form>
+    <hr>
+    <table id="producttable" border="1">
+        <thead>
+            <th>ID</th>
+            <th>NameProduct</th>
+            <th>PriceProduct</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </thead>
+             <tbody>
+        <?php
+             $select =   $pdo->prepare("select * from tbl_product");
+             $select->execute();
+            while( $row = $select -> fetch(PDO::FETCH_NUM)){
+                echo "<tr><td>".$row[0]."</td>".
+                "<td>".$row[1]."</td>".
+                "<td>".$row[2]."</td>".
+                "<td><button type='submit' value=".$row[0]." >Edite</button></td>".
+                "<td><button type='submit'  value=".$row[0]." >Delete</button></td></tr>";
+            }
+        ?>
+        
+        </tbody>
+    </table>
 </body>
-
-<hr>
-<?php
-
-    $select =   $pdo->prepare("select * from tbl_product");
-    $select->execute();
-    echo "<pre>";
-    $row    =   $select->fetch();
-
-    print_r($row);
-    echo '</pre>';
-?>
