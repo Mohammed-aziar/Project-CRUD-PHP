@@ -19,6 +19,21 @@
         }
 
         
+    }else if(isset($_POST['editProduct'])){
+        $nameProduct    =   $_POST['txtname'];
+        $priceProduct   =   $_POST['txtprice'];
+        $idProduct      =   $_POST['txtid'];
+        if(!empty($nameProduct && $priceProduct && $idProduct)){
+            $upDate= $pdo->prepare("UPDATE tbl_product set productname='".$nameProduct."', productprice ='".$priceProduct."' WHERE id=".$idProduct);
+            $upDate -> execute();
+            if($upDate-> rowCount())
+            echo "Insert Successfull";
+            else
+            echo "Insert Fail";
+            
+        }else{
+            echo "file are Empty";
+        }
     }
 
 ?>
@@ -31,12 +46,27 @@
     <title>CRUD</title>
 </head>
 <body>
-    <h2>PHP PDO CRUD OPERATION</h2>
+    <h2>PHP PDO CRUD OPERATION</h2> 
     <form action="" method="POST">
-    <p><input type="text" name="txtname" placeholder="Entrer nom de produit"></p>
-    <p><input type="text" name="txtprice" placeholder="Entrer prix de produit"></p>
-        <input type="submit" name="saveProduct" value="enregistré">
-    </form>
+    <?php
+        if(isset($_POST['btnedit'])){
+            $select=$pdo->prepare("select * from tbl_product where id=".$_POST['btnedit']);
+            $select->execute();
+            $row=$select->fetch(PDO::FETCH_NUM);
+            echo '<p><input type="text" hidden name="txtid"  value='.$row[0].'></p>
+            <p><input type="text" name="txtname" placeholder="Entrer nom de produit" value='.$row[1].'></p>
+            <p><input type="text" name="txtprice" placeholder="Entrer prix de produit" value='.$row[2].'></p>
+                <input type="submit" name="editProduct" value="modifier">';
+        }else{
+            echo '<p><input type="text" name="txtname" placeholder="Entrer nom de produit"></p>
+            <p><input type="text" name="txtprice" placeholder="Entrer prix de produit"></p>
+            <input type="submit" name="saveProduct" value="enregistré">';
+        }
+    ?>
+   
+        
+    
+    
     <hr>
     <table id="producttable" border="1">
         <thead>
@@ -54,11 +84,12 @@
                 echo "<tr><td>".$row[0]."</td>".
                 "<td>".$row[1]."</td>".
                 "<td>".$row[2]."</td>".
-                "<td><button type='submit' value=".$row[0]." >Edite</button></td>".
-                "<td><button type='submit'  value=".$row[0]." >Delete</button></td></tr>";
+                "<td><button type='submit' value=".$row[0]." name='btnedit'>Edit</button></td>".
+                "<td><button type='submit'  value=".$row[0]." name='btndelete' >Delete</button></td></tr>";
             }
         ?>
         
         </tbody>
     </table>
+    </form>
 </body>
