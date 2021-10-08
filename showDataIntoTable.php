@@ -24,7 +24,14 @@
         $priceProduct   =   $_POST['txtprice'];
         $idProduct      =   $_POST['txtid'];
         if(!empty($nameProduct && $priceProduct && $idProduct)){
+            //method one 
+            /*
             $upDate= $pdo->prepare("UPDATE tbl_product set productname='".$nameProduct."', productprice ='".$priceProduct."' WHERE id=".$idProduct);
+            */
+            //method two
+            $upDate= $pdo->prepare("UPDATE tbl_product set productname=:name, productprice =:price WHERE id=".$idProduct);
+            $upDate -> bindParam('name',$nameProduct);
+            $upDate -> bindParam('price',$priceProduct);
             $upDate -> execute();
             if($upDate-> rowCount())
             echo "Insert Successfull";
