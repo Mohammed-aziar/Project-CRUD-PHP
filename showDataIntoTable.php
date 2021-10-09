@@ -42,6 +42,18 @@
             echo "file are Empty";
         }
     }
+        if(isset($_POST['btndelete'])){
+            $id =   $_POST['btndelete'];
+            $delete = $pdo  ->  prepare("DELETE FROM tbl_product WHERE id=".$_POST['btndelete']);
+            $delete ->  execute();
+            if($delete -> rowCount())
+            echo "data deleted successfull";
+            else
+            echo "Delete Fail!!!";
+        }else{
+            echo "erreur";
+        }
+    
 
 ?>
 <!DOCTYPE html>
@@ -92,7 +104,7 @@
                 "<td>".$row[1]."</td>".
                 "<td>".$row[2]."</td>".
                 "<td><button type='submit' value=".$row[0]." name='btnedit'>Edit</button></td>".
-                "<td><button type='submit'  value=".$row[0]." name='btndelete' >Delete</button></td></tr>";
+                "<td><button type='submit'  value=".$row[0]." name='btndelete'>Delete</button></td></tr>";
             }
         ?>
         
