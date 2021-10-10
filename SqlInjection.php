@@ -1,7 +1,7 @@
 <?php
     include 'dbconnect.php';
-   /* 
-        this code easy to access a databasse with sqlinjection
+    
+    // this code easy to access a databasse with sqlinjection
     if(isset($_POST['sub']))
     {
         $email=$_POST['email'];
@@ -12,22 +12,25 @@
         else
             echo    "wrong email";
     }
-    */
+    
     //i injected code in input for drop a teble ';DROP TABLE nameOfTable;'--
 
-
+/*
     if(isset($_POST['sub'])){
         $email=$_POST['email'];
+
         $select=$pdo -> prepare("select * from tbl_email where email=:email");
         $select->bindParam("email",$email);
         $select->execute();
 
         $row = $select->fetch(PDO::FETCH_ASSOC);
-        if($row['email']=$email)
-            echo 'Email matched '.$email;
+
+        if($select->rowCount())
+            echo 'Email matched '.$email ." id=".$row['id'] ;
         else
             echo 'wrong email';
     }
+    */
 ?>
 <!DOCTYPE html>
 <html lang="en">

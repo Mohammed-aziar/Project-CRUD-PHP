@@ -104,7 +104,7 @@
                 "<td>".$row[1]."</td>".
                 "<td>".$row[2]."</td>".
                 "<td><button type='submit' value=".$row[0]." name='btnedit'>Edit</button></td>".
-                "<td><button type='submit'  value=".$row[0]." name='btndelete'>Delete</button></td></tr>";
+                "<td><button type='submit'  value=".$row[0]." name='btndelete' >Delete</button></td></tr>";
             }
         ?>
         
